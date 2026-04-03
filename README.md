@@ -5,6 +5,13 @@ Similar features to [Mission Control Plus](https://www.fadel.io/missioncontrolpl
 - Close windows with middle click like in KDE
 - Visual buttons coming soon™
 
+## Installation
+1. Download from releases
+2. Bypass gatekeeper in system settings or using `xattr -c <path>`
+3. Allow accessibility in system settings
+4. Disable the previous projects if you had them installed (and stop them from running on startup if prefered)
+5. Relaunch app (Might be hard so just do `killall Mission\ Command` from terminal)
+
 ## Planned Features / Bugfixes
 - Close other windows
 - Minimize other windows
