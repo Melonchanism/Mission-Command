@@ -6,23 +6,50 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		03765BFB2F79F8AA00888D82 /* Mission Command.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mission Command.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		034465102F7E30C700AC8479 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0344650F2F7E30C200AC8479 /* LICENSE */; };
+		03765C0B2F79FEB200888D82 /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03765C0A2F79FEB200888D82 /* SkyLight.framework */; };
+		03ADCC9C2F802F1800CAEC45 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 03ADCC9B2F802F1800CAEC45 /* README.md */; };
+		03ADCCA82F803BE100CAEC45 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCC9D2F803BE100CAEC45 /* App.swift */; };
+		03ADCCA92F803BE100CAEC45 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCC9E2F803BE100CAEC45 /* ContentView.swift */; };
+		03ADCCAA2F803BE100CAEC45 /* EventTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCC9F2F803BE100CAEC45 /* EventTap.swift */; };
+		03ADCCAB2F803BE100CAEC45 /* KeyboardShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA12F803BE100CAEC45 /* KeyboardShortcut.swift */; };
+		03ADCCAC2F803BE100CAEC45 /* MCWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA22F803BE100CAEC45 /* MCWindow.swift */; };
+		03ADCCAD2F803BE100CAEC45 /* MissionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA32F803BE100CAEC45 /* MissionControl.swift */; };
+		03ADCCAE2F803BE100CAEC45 /* Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA42F803BE100CAEC45 /* Prefs.swift */; };
+		03ADCCAF2F803BE100CAEC45 /* RunLoopThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA52F803BE100CAEC45 /* RunLoopThread.swift */; };
+		03ADCCB02F803BE100CAEC45 /* XWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ADCCA62F803BE100CAEC45 /* XWindow.swift */; };
+		03F049252F7B77D6005F17F0 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 03F049242F7B77D6005F17F0 /* Defaults */; };
+		03F049272F7B77D6005F17F0 /* DefaultsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = 03F049262F7B77D6005F17F0 /* DefaultsMacros */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		03765BFD2F79F8AA00888D82 /* Mission Command */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Mission Command";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		0344650F2F7E30C200AC8479 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		03765BFB2F79F8AA00888D82 /* Mission Command.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mission Command.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03765C0A2F79FEB200888D82 /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
+		03765C982F7A277E00888D82 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		03765C9A2F7A278200888D82 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		03ADCC9B2F802F1800CAEC45 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		03ADCC9D2F803BE100CAEC45 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		03ADCC9E2F803BE100CAEC45 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		03ADCC9F2F803BE100CAEC45 /* EventTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTap.swift; sourceTree = "<group>"; };
+		03ADCCA02F803BE100CAEC45 /* Extern.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extern.h; sourceTree = "<group>"; };
+		03ADCCA12F803BE100CAEC45 /* KeyboardShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcut.swift; sourceTree = "<group>"; };
+		03ADCCA22F803BE100CAEC45 /* MCWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCWindow.swift; sourceTree = "<group>"; };
+		03ADCCA32F803BE100CAEC45 /* MissionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionControl.swift; sourceTree = "<group>"; };
+		03ADCCA42F803BE100CAEC45 /* Prefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
+		03ADCCA52F803BE100CAEC45 /* RunLoopThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopThread.swift; sourceTree = "<group>"; };
+		03ADCCA62F803BE100CAEC45 /* XWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XWindow.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		03765BF82F79F8AA00888D82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03F049272F7B77D6005F17F0 /* DefaultsMacros in Frameworks */,
+				03F049252F7B77D6005F17F0 /* Defaults in Frameworks */,
+				03765C0B2F79FEB200888D82 /* SkyLight.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,8 +59,11 @@
 		03765BF22F79F8AA00888D82 = {
 			isa = PBXGroup;
 			children = (
-				03765BFD2F79F8AA00888D82 /* Mission Command */,
+				03ADCC9B2F802F1800CAEC45 /* README.md */,
+				0344650F2F7E30C200AC8479 /* LICENSE */,
+				03ADCCA72F803BE100CAEC45 /* Mission Command */,
 				03765BFC2F79F8AA00888D82 /* Products */,
+				03765C092F79FEB200888D82 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -43,6 +73,33 @@
 				03765BFB2F79F8AA00888D82 /* Mission Command.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		03765C092F79FEB200888D82 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03765C9A2F7A278200888D82 /* ApplicationServices.framework */,
+				03765C982F7A277E00888D82 /* Carbon.framework */,
+				03765C0A2F79FEB200888D82 /* SkyLight.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		03ADCCA72F803BE100CAEC45 /* Mission Command */ = {
+			isa = PBXGroup;
+			children = (
+				03ADCC9D2F803BE100CAEC45 /* App.swift */,
+				03ADCCA52F803BE100CAEC45 /* RunLoopThread.swift */,
+				03ADCC9E2F803BE100CAEC45 /* ContentView.swift */,
+				03ADCCA32F803BE100CAEC45 /* MissionControl.swift */,
+				03ADCCA12F803BE100CAEC45 /* KeyboardShortcut.swift */,
+				03ADCC9F2F803BE100CAEC45 /* EventTap.swift */,
+				03ADCCA22F803BE100CAEC45 /* MCWindow.swift */,
+				03ADCCA42F803BE100CAEC45 /* Prefs.swift */,
+				03ADCCA62F803BE100CAEC45 /* XWindow.swift */,
+				03ADCCA02F803BE100CAEC45 /* Extern.h */,
+			);
+			path = "Mission Command";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -60,11 +117,10 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				03765BFD2F79F8AA00888D82 /* Mission Command */,
-			);
 			name = "Mission Command";
 			packageProductDependencies = (
+				03F049242F7B77D6005F17F0 /* Defaults */,
+				03F049262F7B77D6005F17F0 /* DefaultsMacros */,
 			);
 			productName = "Mission Command";
 			productReference = 03765BFB2F79F8AA00888D82 /* Mission Command.app */;
@@ -94,6 +150,9 @@
 			);
 			mainGroup = 03765BF22F79F8AA00888D82;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				03F049232F7B77D6005F17F0 /* XCRemoteSwiftPackageReference "Defaults" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 03765BFC2F79F8AA00888D82 /* Products */;
 			projectDirPath = "";
@@ -109,6 +168,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03ADCC9C2F802F1800CAEC45 /* README.md in Resources */,
+				034465102F7E30C700AC8479 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +180,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03ADCCA82F803BE100CAEC45 /* App.swift in Sources */,
+				03ADCCA92F803BE100CAEC45 /* ContentView.swift in Sources */,
+				03ADCCAA2F803BE100CAEC45 /* EventTap.swift in Sources */,
+				03ADCCAB2F803BE100CAEC45 /* KeyboardShortcut.swift in Sources */,
+				03ADCCAC2F803BE100CAEC45 /* MCWindow.swift in Sources */,
+				03ADCCAD2F803BE100CAEC45 /* MissionControl.swift in Sources */,
+				03ADCCAE2F803BE100CAEC45 /* Prefs.swift in Sources */,
+				03ADCCAF2F803BE100CAEC45 /* RunLoopThread.swift in Sources */,
+				03ADCCB02F803BE100CAEC45 /* XWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,16 +324,20 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MP26D4WTMR;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mission Command";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.syllogistic.Mission-Command";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -272,8 +346,13 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mission Command/Extern.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Debug;
 		};
@@ -286,16 +365,20 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MP26D4WTMR;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mission Command";
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dev.syllogistic.Mission-Command";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,8 +387,13 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mission Command/Extern.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Release;
 		};
@@ -331,6 +419,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		03F049232F7B77D6005F17F0 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03F049242F7B77D6005F17F0 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03F049232F7B77D6005F17F0 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		03F049262F7B77D6005F17F0 /* DefaultsMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03F049232F7B77D6005F17F0 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = DefaultsMacros;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03765BF32F79F8AA00888D82 /* Project object */;
 }
