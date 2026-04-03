@@ -40,4 +40,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 		runLoopThread.start()
 	}
+	
+	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
+		openSettings()
+		return true
+	}
 }
