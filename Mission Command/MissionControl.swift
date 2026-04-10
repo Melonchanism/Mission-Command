@@ -11,7 +11,7 @@ import Combine
 class MissionControl {
 	var state: State
 
-	var element: AXUIElement
+	var element: AXUIElement?
 	var observer: AXObserver?
 
 	var windows: [MCWindow] = []
@@ -19,29 +19,37 @@ class MissionControl {
 	typealias CallbackFn = ((_ state: State, _ proxy: MissionControl) -> Void)
 	var callback: CallbackFn
 
-	var cancellable: AnyCancellable?
+	var cancellables: Set<AnyCancellable>
 
-	static var dockPid: pid_t {
-		NSRunningApplication.runningApplications(
-			withBundleIdentifier: "com.apple.dock"
-		).first?.processIdentifier ?? 0
-	}
+	var dockPid: pid_t = 0
 
 	init(callback: @escaping CallbackFn) {
 		self.state = .none
 		self.callback = callback
-		self.element = AXUIElementCreateApplication(MissionControl.dockPid)
-		guard AXObserverCreate(MissionControl.dockPid, observerCallback, &observer) == .success else { return }
-		for notification in [kAXExposeExit, kAXExposeShowDesktop, kAXExposeShowAllWindows, kAXExposeShowFrontWindows] {
-			AXObserverAddNotification(observer!, element, notification, Unmanaged.passUnretained(self).toOpaque())
-		}
-		CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer!), .defaultMode)
-
-		cancellable = NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.activeSpaceDidChangeNotification)
+		self.cancellables = .init()
+		updateDockPid()
+		initAXObservers()
+		NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.activeSpaceDidChangeNotification)
 			.sink { _ in
 				print("Workspace Changed")
 				self.updateWindows()
 			}
+			.store(in: &cancellables)
+	}
+	
+	func updateDockPid() {
+		dockPid = NSRunningApplication.runningApplications(
+			withBundleIdentifier: "com.apple.dock"
+		).first?.processIdentifier ?? 0
+	}
+	
+	func initAXObservers() {
+		self.element = AXUIElementCreateApplication(dockPid)
+		guard AXObserverCreate(dockPid, observerCallback, &observer) == .success else { return }
+		for notification in [kAXExposeExit, kAXExposeShowDesktop, kAXExposeShowAllWindows, kAXExposeShowFrontWindows] {
+			AXObserverAddNotification(observer!, element!, notification, Unmanaged.passUnretained(self).toOpaque())
+		}
+		CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer!), .defaultMode)
 	}
 
 	func updateWindows() {
