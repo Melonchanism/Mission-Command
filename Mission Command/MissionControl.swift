@@ -35,6 +35,13 @@ class MissionControl {
 				self.updateWindows()
 			}
 			.store(in: &cancellables)
+		NotificationCenter.default.publisher(
+			for: .init("NSApplicationDockDidRestartNotification")
+		).sink { notification in
+			self.updateDockPid()
+			self.initAXObservers()
+		}
+		.store(in: &cancellables)
 	}
 	
 	func updateDockPid() {
