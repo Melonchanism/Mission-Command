@@ -15,7 +15,7 @@ let runLoopThread = Thread {
 
 	var hoveredWindow: MCWindow?
 
-	clickTap = EventTap(events: [.otherMouseDown, .otherMouseUp, .leftMouseUp]) {
+	clickTap = EventTap(events: [.otherMouseDown, .otherMouseUp]) {
 		proxy,
 		type,
 		event in
@@ -26,10 +26,6 @@ let runLoopThread = Thread {
 		case .otherMouseUp:
 			mcm?.windows.first { $0.frame.contains(event.location) }?.close()
 			return nil
-		case .leftMouseUp:
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-				mcm?.updateWindows()
-			}
 		default:
 			break
 		}

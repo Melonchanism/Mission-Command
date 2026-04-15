@@ -19,6 +19,7 @@ class MissionControl {
 	typealias CallbackFn = ((_ state: State, _ proxy: MissionControl) -> Void)
 	var callback: CallbackFn
 
+	var timer: Timer?
 	var cancellables: Set<AnyCancellable>
 
 	var dockPid: pid_t = 0
@@ -58,6 +59,18 @@ class MissionControl {
 		}
 		CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer!), .defaultMode)
 	}
+	
+	func startTimer() {
+		self.timer = Timer(timeInterval: 0.1, repeats: true) { _ in
+			self.updateWindows()
+		}
+		RunLoop.current.add(timer!, forMode: .common)
+	}
+	
+	func stopTimer() {
+		self.timer?.invalidate()
+		self.timer = nil
+	}
 
 	func updateWindows() {
 		clearWindows()
@@ -92,17 +105,21 @@ func observerCallback(
 	switch notification {
 	case kAXExposeShowFrontWindows:
 		mcm.updateWindows()
+		mcm.startTimer()
 		mcm.state = .application
 		break
 	case kAXExposeShowAllWindows:
 		mcm.updateWindows()
+		mcm.startTimer()
 		mcm.state = .windows
 		break
 	case kAXExposeShowDesktop:
+		mcm.stopTimer()
 		mcm.clearWindows()
 		mcm.state = .desktop
 		break
 	case kAXExposeExit:
+		mcm.stopTimer()
 		mcm.clearWindows()
 		mcm.state = .none
 		break
