@@ -6,6 +6,7 @@
 //
 
 #import <ApplicationServices/ApplicationServices.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 extern AXUIElementRef _AXUIElementCreateWithRemoteToken(CFDataRef data);
 extern AXError _AXUIElementGetWindow(AXUIElementRef ref, uint32_t *wid);
@@ -17,3 +18,5 @@ extern CFArrayRef SLSCopyWindowsWithOptionsAndTags(
 		int cid, uint32_t owner, CFArrayRef spaces,
 		uint32_t options, uint64_t *set_tags, uint64_t *clear_tags
 );
+
+CGPoint CGSCurrentInputPointerPosition(void);

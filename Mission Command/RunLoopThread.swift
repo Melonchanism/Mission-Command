@@ -62,6 +62,12 @@ let runLoopThread = Thread {
 			clickTap?.disable()
 			keyTap?.disable()
 			moveTap?.disable()
+			CGEvent(
+				mouseEventSource: nil,
+				mouseType: .otherMouseUp,
+				mouseCursorPosition: CGSCurrentInputPointerPosition(),
+				mouseButton: .center
+			)?.post(tap: .cghidEventTap)
 		}
 	}
 
