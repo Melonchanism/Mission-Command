@@ -16,7 +16,7 @@ class MissionControl {
 
 	var windows: [MCWindow] = []
 
-	typealias CallbackFn = ((_ state: State, _ proxy: MissionControl) -> Void)
+	typealias CallbackFn = ((_ state: State, _ oldState: State, _ proxy: MissionControl) -> Void)
 	var callback: CallbackFn
 
 	var timer: Timer?
@@ -102,6 +102,7 @@ func observerCallback(
 	context: UnsafeMutableRawPointer?
 ) {
 	let mcm = Unmanaged<MissionControl>.fromOpaque(context!).takeUnretainedValue()
+	let oldState = mcm.state
 	switch notification {
 	case kAXExposeShowFrontWindows:
 		mcm.updateWindows()
@@ -126,7 +127,7 @@ func observerCallback(
 	default:
 		break
 	}
-	mcm.callback(mcm.state, mcm)
+	mcm.callback(mcm.state, oldState, mcm)
 	print(mcm.state)
 }
 

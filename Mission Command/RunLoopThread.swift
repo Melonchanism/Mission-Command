@@ -53,7 +53,7 @@ let runLoopThread = Thread {
 		return Unmanaged.passUnretained(event)
 	}
 
-	mcm = MissionControl { state, mcm in
+	mcm = MissionControl { state, oldState, mcm in
 		if state == .application || state == .windows {
 			clickTap?.enable()
 			keyTap?.enable()
@@ -62,12 +62,16 @@ let runLoopThread = Thread {
 			clickTap?.disable()
 			keyTap?.disable()
 			moveTap?.disable()
-			CGEvent(
-				mouseEventSource: nil,
-				mouseType: .otherMouseUp,
-				mouseCursorPosition: CGSCurrentInputPointerPosition(),
-				mouseButton: .center
-			)?.post(tap: .cghidEventTap)
+			if state != oldState {
+				let oldPos = CGSCurrentInputPointerPosition()
+				CGEvent(
+					mouseEventSource: nil,
+					mouseType: .otherMouseUp,
+					mouseCursorPosition: .zero,
+					mouseButton: .center
+				)?.post(tap: .cghidEventTap)
+				CGWarpMouseCursorPosition(oldPos)
+			}
 		}
 	}
 
