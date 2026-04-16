@@ -33,6 +33,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@Environment(\.openSettings) var openSettings
 
 	func applicationDidFinishLaunching(_ notification: Notification) {
+		let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString: true]
+		if !AXIsProcessTrustedWithOptions(options) {
+			let alert = NSAlert()
+			alert.messageText = "Permissions Missing"
+			alert.informativeText = "Mission Command could not access accessibility permissions. Please grant permissions and reopen Mission Command"
+			alert.runModal()
+			exit(EXIT_SUCCESS)
+		}
 		if NSAppleEventManager.shared().currentAppleEvent?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue
 			!= keyAELaunchedAsLogInItem
 		{
