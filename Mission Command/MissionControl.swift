@@ -16,7 +16,7 @@ class MissionControl {
 
 	var windows: [MCWindow] = []
 
-	typealias CallbackFn = ((_ state: State, _ oldState: State, _ proxy: MissionControl) -> Void)
+	typealias CallbackFn = ((_ state: State, _ proxy: MissionControl) -> Void)
 	var callback: CallbackFn
 
 	var timer: Timer?
@@ -44,13 +44,14 @@ class MissionControl {
 		}
 		.store(in: &cancellables)
 	}
-	
+
 	func updateDockPid() {
-		dockPid = NSRunningApplication.runningApplications(
-			withBundleIdentifier: "com.apple.dock"
-		).first?.processIdentifier ?? 0
+		dockPid =
+			NSRunningApplication.runningApplications(
+				withBundleIdentifier: "com.apple.dock"
+			).first?.processIdentifier ?? 0
 	}
-	
+
 	func initAXObservers() {
 		self.element = AXUIElementCreateApplication(dockPid)
 		guard AXObserverCreate(dockPid, observerCallback, &observer) == .success else { return }
@@ -59,14 +60,14 @@ class MissionControl {
 		}
 		CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer!), .defaultMode)
 	}
-	
+
 	func startTimer() {
 		self.timer = Timer(timeInterval: 0.1, repeats: true) { _ in
 			self.updateWindows()
 		}
 		RunLoop.current.add(timer!, forMode: .common)
 	}
-	
+
 	func stopTimer() {
 		self.timer?.invalidate()
 		self.timer = nil
@@ -74,8 +75,9 @@ class MissionControl {
 
 	func updateWindows() {
 		clearWindows()
-		
-		let windowInfoList = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID)! as [CFTypeRef]
+
+		let windowInfoList =
+			CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID)! as [CFTypeRef]
 		for info in windowInfoList {
 			guard let window = MCWindow(cfVal: info) else { continue }
 			windows.append(window)
@@ -102,7 +104,6 @@ func observerCallback(
 	context: UnsafeMutableRawPointer?
 ) {
 	let mcm = Unmanaged<MissionControl>.fromOpaque(context!).takeUnretainedValue()
-	let oldState = mcm.state
 	switch notification {
 	case kAXExposeShowFrontWindows:
 		mcm.updateWindows()
@@ -127,7 +128,7 @@ func observerCallback(
 	default:
 		break
 	}
-	mcm.callback(mcm.state, oldState, mcm)
+	mcm.callback(mcm.state, mcm)
 	print(mcm.state)
 }
 
