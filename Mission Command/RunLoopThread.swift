@@ -66,6 +66,7 @@ let runLoopThread = Thread {
 			clickTap?.enable()
 			keyTap?.enable()
 			moveTap?.enable()
+			hoveredWindow = mcm.windows.first { $0.frame.contains(CGSCurrentInputPointerPosition()) }
 		} else {
 			clickTap?.disable()
 			keyTap?.disable()
