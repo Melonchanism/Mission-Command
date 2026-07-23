@@ -15,9 +15,7 @@ Similar features to [Mission Control Plus](https://www.fadel.io/missioncontrolpl
 ## Planned Features / Bugfixes
 - Close other windows
 - Minimize other windows
-- Remove old windows' space from mission control (unlikely)
 - Visual X window (multiple styles)
-- Stop certain apps from reopening if they get focused (Apps that don't release their windows)
 
 ## Building For Yourself
 - Wait for SPM to download stuff
