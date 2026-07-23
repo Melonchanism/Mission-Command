@@ -34,7 +34,7 @@ class EventTap {
 		)
 
 		guard eventTap != nil else {
-			print("Failed to create tap. AX may be disabled. Retrying in 5 seconds...")
+			print("Failed to create tap. AX may be disabled")
 			return nil
 		}
 

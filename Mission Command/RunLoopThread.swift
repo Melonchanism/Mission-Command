@@ -26,12 +26,6 @@ let runLoopThread = Thread {
 		case .otherMouseUp:
 			clickTap?.disable()
 			mcm?.windows.first { $0.frame.contains(event.location) }?.close()
-			CGEvent(
-				mouseEventSource: nil,
-				mouseType: .otherMouseUp,
-				mouseCursorPosition: CGSCurrentInputPointerPosition(),
-				mouseButton: .center
-			)?.post(tap: .cghidEventTap)
 			clickTap?.enable()
 			return nil
 		default:

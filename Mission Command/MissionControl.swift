@@ -15,6 +15,9 @@ class MissionControl {
 	var observer: AXObserver?
 
 	var windows: [MCWindow] = []
+	
+	var dummyWindow: NSWindow?
+	var dummyWindowDelegate: WindowDelegate?
 
 	typealias CallbackFn = ((_ state: State, _ proxy: MissionControl) -> Void)
 	var callback: CallbackFn
@@ -22,47 +25,41 @@ class MissionControl {
 	var timer: Timer?
 	var cancellables: Set<AnyCancellable>
 
-	var dockPid: pid_t = 0
+	var ptr: UnsafeMutableRawPointer { Unmanaged.passUnretained(self).toOpaque() }
 
 	init(callback: @escaping CallbackFn) {
 		self.state = .none
 		self.callback = callback
 		self.cancellables = .init()
-		updateDockPid()
-		initAXObservers()
-		NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.activeSpaceDidChangeNotification)
-			.sink { _ in
-				print("Workspace Changed")
-				self.updateWindows()
-			}
-			.store(in: &cancellables)
-		NotificationCenter.default.publisher(
-			for: .init("NSApplicationDockDidRestartNotification")
-		).sink { notification in
-			self.updateDockPid()
-			self.initAXObservers()
+		NSWorkspace.shared.notificationCenter.publisher(
+			for: NSWorkspace.activeSpaceDidChangeNotification
+		)
+		.sink { _ in
+			print("Workspace Changed")
+			self.updateWindows()
 		}
 		.store(in: &cancellables)
-	}
-
-	func updateDockPid() {
-		dockPid =
-			NSRunningApplication.runningApplications(
-				withBundleIdentifier: "com.apple.dock"
-			).first?.processIdentifier ?? 0
-	}
-
-	func initAXObservers() {
-		self.element = AXUIElementCreateApplication(dockPid)
-		guard AXObserverCreate(dockPid, observerCallback, &observer) == .success else { return }
-		for notification in [kAXExposeExit, kAXExposeShowDesktop, kAXExposeShowAllWindows, kAXExposeShowFrontWindows] {
-			AXObserverAddNotification(observer!, element!, notification, Unmanaged.passUnretained(self).toOpaque())
+		
+		DispatchQueue.main.async { [self] in
+			dummyWindow = NSWindow()
+			dummyWindowDelegate = WindowDelegate(mc: self)
+			dummyWindow?.delegate = dummyWindowDelegate
+			dummyWindow?.setFrame(.init(x: 0, y: 0, width: 40, height: 40), display: true)
+			dummyWindow?.ignoresMouseEvents = true
+			dummyWindow?.alphaValue = 0
+			dummyWindow?.collectionBehavior = [
+				.transient,
+				.canJoinAllSpaces,
+				.fullScreenAuxiliary,
+				.canJoinAllApplications,
+			]
+			dummyWindow?.styleMask = [.borderless]
+			dummyWindow?.orderFrontRegardless()
 		}
-		CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer!), .defaultMode)
 	}
 
 	func startTimer() {
-		self.timer = Timer(timeInterval: 0.1, repeats: true) { _ in
+		self.timer = Timer(timeInterval: 0.2, repeats: true) { _ in
 			self.updateWindows()
 		}
 		RunLoop.current.add(timer!, forMode: .common)
@@ -76,8 +73,12 @@ class MissionControl {
 	func updateWindows() {
 		clearWindows()
 
-		let windowInfoList =
-			CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID)! as [CFTypeRef]
+		guard
+			let windowInfoList =
+				CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID)
+				as? [CFTypeRef]
+		else { return }
+
 		for info in windowInfoList {
 			guard let window = MCWindow(cfVal: info) else { continue }
 			windows.append(window)
@@ -97,42 +98,26 @@ class MissionControl {
 	}
 }
 
-func observerCallback(
-	observer: AXObserver,
-	element: AXUIElement,
-	notification: CFString,
-	context: UnsafeMutableRawPointer?
-) {
-	let mcm = Unmanaged<MissionControl>.fromOpaque(context!).takeUnretainedValue()
-	switch notification {
-	case kAXExposeShowFrontWindows:
-		mcm.updateWindows()
-		mcm.startTimer()
-		mcm.state = .application
-		break
-	case kAXExposeShowAllWindows:
-		mcm.updateWindows()
-		mcm.startTimer()
-		mcm.state = .windows
-		break
-	case kAXExposeShowDesktop:
-		mcm.stopTimer()
-		mcm.clearWindows()
-		mcm.state = .desktop
-		break
-	case kAXExposeExit:
-		mcm.stopTimer()
-		mcm.clearWindows()
-		mcm.state = .none
-		break
-	default:
-		break
+class WindowDelegate: NSObject, NSWindowDelegate {
+	var mc: MissionControl
+	init(mc: MissionControl) {
+		self.mc = mc
+		super.init()
 	}
-	mcm.callback(mcm.state, mcm)
-	print(mcm.state)
+	
+	func windowDidChangeOcclusionState(_ notification: Notification) {
+		let window = notification.object as! NSWindow
+		print("occlusion", window.occlusionState)
+		if window.occlusionState.rawValue == 8192 {
+			mc.state = .windows
+			mc.callback(.windows, mc)
+			mc.updateWindows()
+			mc.startTimer()
+		} else {
+			mc.state = .none
+			mc.callback(.none, mc)
+			mc.clearWindows()
+			mc.stopTimer()
+		}
+	}
 }
-
-var kAXExposeShowAllWindows = "AXExposeShowAllWindows" as CFString
-var kAXExposeShowFrontWindows = "AXExposeShowFrontWindows" as CFString
-var kAXExposeShowDesktop = "AXExposeShowDesktop" as CFString
-var kAXExposeExit = "AXExposeExit" as CFString
